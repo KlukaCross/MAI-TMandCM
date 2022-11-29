@@ -27,8 +27,8 @@ WmodA = sp.diff(VmodA, t)
 xB = xA + lAB * sp.sin(phi)
 yB = lAB * sp.cos(phi)
 
-VmodB = sp.sqrt(sp.diff(xB, t)**2, sp.diff(yB, t)**2)
-WmodB = sp.sqrt(sp.diff(xB, t, 2)**2, sp.diff(yB, t, 2)**2)
+VmodB = sp.sqrt(sp.diff(xB, t)**2 + sp.diff(yB, t)**2)
+WmodB = sp.sqrt(sp.diff(xB, t, 2)**2 + sp.diff(yB, t, 2)**2)
 
 
 """constructing functions"""
