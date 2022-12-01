@@ -19,10 +19,6 @@ t = sp.Symbol('t')
 xA = 4*sp.cos(3*t)
 phi = 4*sp.sin(t-10)
 
-# Motion of the A
-VmodA = sp.diff(xA, t)
-WmodA = sp.diff(VmodA, t)
-
 # Motion of the B
 xB = xA + lAB * sp.sin(phi)
 yB = lAB * sp.cos(phi)
