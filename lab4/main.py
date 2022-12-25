@@ -61,7 +61,6 @@ a11 = ur1.coeff(sp.diff(VA, t), 1)
 #a21 = ur2.coeff(sp.diff(VA, t), 1)
 #a22 = ur2.coeff(sp.diff(omB, t), 1)
 b1 = -(ur1.coeff(sp.diff(VA, t), 0)).subs(sp.diff(xA, t), VA)
-#b2 = -(ur2.coeff(sp.diff(VA, t), 0)).coeff(sp.diff(omB, t), 0).subs([(sp.diff(xA, t), VA), (sp.diff(phi, t), omB)])
 
 #det = a11 * a22 - a12 * a21
 #det1 = b1 * a22 - b2 * a12
@@ -127,14 +126,23 @@ PAB, = ax1.plot([0, 0], [XA[0], XB[0]], 'black')
 PDA, = ax1.plot([-a, 0], [0, XA[0]], linestyle='--', color='m')
 PEA, = ax1.plot([a, 0], [0, XA[0]], linestyle='--', color='m')
 
-# plotting T-V and T-Om
+# plotting T-X and T-V
 ax2 = fig.add_subplot(4, 2, 2)
-ax2.set(xlim=[T_start, T_stop], ylim=[min(sol[:, 1]), max(sol[:, 1])])
+ax2.set(xlim=[T_start, T_stop], ylim=[min(sol[:, 0]), max(sol[:, 0])])
+tx_x = [T[0]]
+tx_y = [sol[:, 0][0]]
+TX, = ax2.plot(tx_x, tx_y, '-')
+ax2.set_xlabel('T')
+ax2.set_ylabel('X')
+
+
+ax3 = fig.add_subplot(4, 2, 4)
+ax3.set(xlim=[T_start, T_stop], ylim=[min(sol[:, 1]), max(sol[:, 1])])
 tv_x = [T[0]]
 tv_y = [sol[:, 1][0]]
-TV, = ax2.plot(tv_x, tv_y, '-')
-ax2.set_xlabel('T')
-ax2.set_ylabel('V')
+TV, = ax3.plot(tv_x, tv_y, '-')
+ax3.set_xlabel('T')
+ax3.set_ylabel('V')
 
 #ax3 = fig.add_subplot(4, 2, 4)
 #ax3.set(xlim=[T_start, T_stop], ylim=[min(sol[:, 3]), max(sol[:, 3])])
@@ -157,16 +165,16 @@ def anima(i):
 
     tv_x.append(T[i])
     tv_y.append(sol[:, 1][i])
-    #tom_x.append(T[i])
-    #tom_y.append(sol[:, 3][i])
+    tx_x.append(T[i])
+    tx_y.append(sol[:, 0][i])
     TV.set_data(tv_x, tv_y)
-    #TOm.set_data(tom_x, tom_y)
+    TX.set_data(tx_x, tx_y)
     if i == countOfFrames - 1:
         tv_x.clear()
         tv_y.clear()
-        #tom_x.clear()
-        #tom_y.clear()
-    return PAB, PDA, PEA, PA, PB, TV, #TOm
+        tx_x.clear()
+        tx_y.clear()
+    return PAB, PDA, PEA, PA, PB, TV, TX
 
 
 # animation function
